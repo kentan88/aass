@@ -93,13 +93,13 @@ Delivery.new(status: 'unassigned').next_state
 ```
 aass(column: :status) do
   from :unassigned do
-    to: :assigned, if: :can_assign?
+    to :assigned, if: :can_assign?
     to :postponed, if: :can_postpone?
     to :cancel, if: :can_cancel?
   end
 
   from :assigned do
-    to: :shipping, if: :can_ship?
+    to :shipping, if: :can_ship?
   end
 end
 ```

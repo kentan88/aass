@@ -18,6 +18,7 @@ Or install it yourself as:
 
 ## Before
 
+```
 class Delivery < ActiveRecord::Base
   def set_status
     case status
@@ -50,6 +51,10 @@ class Delivery < ActiveRecord::Base
     true
   end
 end
+
+Delivery.new(status: 'unassigned').set_status
+=> "postponed"
+```
 
 
 ## After

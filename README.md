@@ -61,7 +61,7 @@ Delivery.new(status: 'unassigned').next_state
 
 ```
 class Delivery < ActiveRecord::Base
-  include Aass
+  include AASS
 
   aass(column: :status) do
     # higher gets priority

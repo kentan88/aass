@@ -27,7 +27,7 @@ class Delivery < ActiveRecord::Base
           'assigned'
         elsif can_postponed?
           'postponed'
-        elsif can_cancel?
+        else can_cancel?
           'cancelled'
         end
       when 'assigned'

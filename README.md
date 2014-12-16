@@ -44,7 +44,7 @@ class Delivery < ActiveRecord::Base
   end
 end
 
-Delivery.new(status: 'unassigned').next_state
+Delivery.new(status: 'unassigned').set_status
 => "postponed"
 ```
 
@@ -81,7 +81,7 @@ class Delivery < ActiveRecord::Base
 end
 
 
-Delivery.new(status: 'unassigned').set_status
+Delivery.new(status: 'unassigned').next_state
 => "postponed"
 ```
 

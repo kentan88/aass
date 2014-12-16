@@ -1,6 +1,6 @@
 # Aass
 
-TODO: Write a gem description
+Acts-As-State-Setter (Aass) sets the next state of a object based on the current state and a specified condition.
 
 ## Installation
 

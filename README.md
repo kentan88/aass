@@ -52,7 +52,7 @@ class Delivery < ActiveRecord::Base
   end
 end
 
-Delivery.new(status: 'unassigned').set_status
+Delivery.new(status: 'unassigned').next_state
 => "postponed"
 ```
 
@@ -89,10 +89,14 @@ class Delivery < ActiveRecord::Base
 end
 
 
-Delivery.new(status: 'unassigned').aass_status
+Delivery.new(status: 'unassigned').next_state
 => "postponed"
 ```
 
+## To-Do
+1. Integration with AASM
+2. Provide aass_status! to update state immediately
+3. Perhaps a dynamic
 
 ## Contributing
 

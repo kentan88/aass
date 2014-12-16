@@ -5,7 +5,7 @@ module Aass
     base.extend(ClassMethods)
 
     base.class_eval do
-      def aass_status
+      def next_state
         states = self.class.aass.states
         current_state = self.status.to_sym
 

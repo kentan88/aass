@@ -1,6 +1,6 @@
-# Aass
+# AASS
 
-Acts-As-State-Setter (Aass) sets the next state of a object based on the current state and a specified condition.
+Acts-As-State-Setter (AASS) sets the next state of a object based on the current state and a specified condition.
 
 ## Installation
 

@@ -18,7 +18,36 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+```
+class Delivery < ActiveRecord::Base
+  include Aass
+
+  aass(column: :status) do
+    # higher gets priority
+    set from: :unassigned, to: :assigned, if: :can_assign?
+    set from: :unassigned, to: :postponed, if: :can_postpone?
+    set from: :unassigned, to: :cancelled, if: :can_cancel?
+    set from: :assigned, to: :unassigned, if: :can_unassign?
+  end
+
+  def can_assign?
+    false
+  end
+
+  def can_cancel?
+    true
+  end
+
+  def can_postpone?
+    true
+  end
+end
+
+
+Delivery.new(status: 'unassigned').aass_status
+=> "postponed"
+```
+
 
 ## Contributing
 

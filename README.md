@@ -57,6 +57,7 @@ class Delivery < ActiveRecord::Base
 
   aass(column: :status) do
     from :unassigned do
+      # higher has priority
       to :assigned, if: :can_assign?
       to :postponed, if: :can_postpone?
       to :cancel, if: :can_cancel?
@@ -66,7 +67,7 @@ class Delivery < ActiveRecord::Base
       to :shipping, if: :can_ship?
     end
   end
-    
+
   def can_assign?
     false
   end

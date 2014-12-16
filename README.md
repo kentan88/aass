@@ -6,7 +6,7 @@ Acts-As-State-Setter (AASS) sets the next state of a object based on the current
 
 Add this line to your application's Gemfile:
 
-    gem 'aass'
+    gem 'aass', :git => "git@github.com:kentan88/aass.git", :branch => "master"
 
 And then execute:
 

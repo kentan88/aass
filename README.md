@@ -39,11 +39,11 @@ class Delivery < ActiveRecord::Base
     false
   end
 
-  def can_cancel?
+  def can_postpone?
     true
   end
 
-  def can_postpone?
+  def can_cancel?
     true
   end
 
@@ -75,11 +75,11 @@ class Delivery < ActiveRecord::Base
     false
   end
 
-  def can_cancel?
+  def can_postpone?
     true
   end
 
-  def can_postpone?
+  def can_cancel?
     true
   end
 

@@ -5,7 +5,7 @@ require 'aass/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "aass"
-  spec.version       = Aass::VERSION
+  spec.version       = AASS::VERSION
   spec.authors       = ["Tan Kian Keong"]
   spec.email         = ["kentan0130@gmail.com"]
   spec.summary       = %q{State Setter}

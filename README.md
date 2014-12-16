@@ -47,7 +47,7 @@ class Delivery < ActiveRecord::Base
     true
   end
 
-  def can ship?
+  def can_ship?
     true
   end
 end
@@ -83,7 +83,7 @@ class Delivery < ActiveRecord::Base
     true
   end
 
-  def can ship?
+  def can_ship?
     true
   end
 end

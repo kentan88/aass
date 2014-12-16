@@ -96,7 +96,6 @@ Delivery.new(status: 'unassigned').next_state
 ## To-Do
 1. Integration with AASM
 2. Provide aass_status! to update state immediately
-3. Perhaps a dynamic
 
 ## Contributing
 

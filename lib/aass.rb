@@ -1,6 +1,6 @@
 # require "aa ss/version"
 
-module Aass
+module AASS
   def self.included(base)
     base.extend(ClassMethods)
 
@@ -11,7 +11,6 @@ module Aass
 
         if states.keys.include?(current_state)
           possible_states = states[current_state]
-
           next_state_hash = possible_states.detect { |hash| self.send(hash[:if]) }
           self.status = next_state_hash[:to].to_s if next_state_hash
         end
@@ -21,7 +20,7 @@ module Aass
 
   module ClassMethods
     def aass(options={}, &block)
-      @aass ||= Aass::Base.new(self, options)
+      @aass ||= AASS::Base.new(self, options)
       @aass.instance_eval(&block) if block
       @aass
     end

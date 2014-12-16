@@ -1,7 +1,7 @@
 require File.join(File.dirname(__FILE__), 'lib', 'aass')
 
 class Dummy
-  include Aass
+  include AASS
 
   attr_accessor :status, :name
 
@@ -21,11 +21,11 @@ class Dummy
     false
   end
 
-  def can_cancel?
-    false
+  def can_postpone?
+    true
   end
 
-  def can_postpone?
+  def can_cancel?
     false
   end
 
@@ -33,5 +33,4 @@ end
 
 
 dummy = Dummy.new(status: 'unassigned')
-dummy.aass_status
-p dummy.status
+p dummy.next_state

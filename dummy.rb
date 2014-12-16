@@ -11,10 +11,15 @@ class Dummy
   end
 
   aass(column: :status) do
-    set from: :unassigned, to: :assigned, if: :can_assign?
-    set from: :unassigned, to: :postponed, if: :can_postpone?
-    set from: :unassigned, to: :cancelled, if: :can_cancel?
-    set from: :assigned, to: :unassigned, if: :can_unassign?
+    from :unassigned do
+      to :assigned, if: :can_assign?
+      to :postponed, if: :can_postpone?
+      to :cancel, if: :can_cancel?
+    end
+
+    from :assigned do
+      to :shipping, if: :can_ship?
+    end
   end
 
   def can_assign?
@@ -28,9 +33,7 @@ class Dummy
   def can_cancel?
     false
   end
-
 end
-
 
 dummy = Dummy.new(status: 'unassigned')
 p dummy.next_state

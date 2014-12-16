@@ -27,15 +27,20 @@ module AASS
   end
 
   class Base
-    attr_accessor :klass, :states
+    attr_accessor :klass, :states, :state
     def initialize(klass, opts = {})
       @klass = klass
       @states = {}
     end
 
-    def set(opts)
-      @states[opts[:from]] ||= []
-      @states[opts[:from]] << { to: opts[:to], if: opts[:if] }
+    def from(state, &block)
+      @state = state
+      @states[@state] ||= []
+      self.instance_eval(&block) if block
+    end
+
+    def to(state, opts = {})
+      @states[@state] << opts.merge(to: state)
     end
   end
 end

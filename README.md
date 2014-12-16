@@ -60,7 +60,7 @@ class Delivery < ActiveRecord::Base
     set from: :unassigned, to: :assigned, if: :can_assign?
     set from: :unassigned, to: :postponed, if: :can_postpone?
     set from: :unassigned, to: :cancelled, if: :can_cancel?
-    set from: :shipping, to: :unassigned, if: :can_ship?
+    set from: :assigned, to: :shipping, if: :can_ship?
   end
 
   def can_assign?
@@ -88,6 +88,21 @@ Delivery.new(status: 'unassigned').next_state
 ## To-Do
 1. Integration with AASM
 2. Provide aass_status! to update state immediately
+3. Lump same states in a single block
+
+```
+aass(column: :status) do
+  from :unassigned do
+    to: :assigned, if: :can_assign?
+    to :postponed, if: :can_postpone?
+    to :cancel, if: :can_cancel?
+  end
+
+  from :assigned do
+    to: :shipping, if: :can_ship?
+  end
+end
+```
 
 ## Contributing
 

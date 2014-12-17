@@ -7,7 +7,7 @@ module AASS
     base.class_eval do
       def next_state
         states = self.class.aass.states
-        current_state = self.status.to_sym
+        current_state = self.send(states[:column]).to_sym
 
         if states.keys.include?(current_state)
           possible_states = states[current_state]
@@ -19,16 +19,17 @@ module AASS
   end
 
   module ClassMethods
-    def aass(options={}, &block)
-      @aass ||= AASS::Base.new(self, options)
+    def aass(opts={}, &block)
+      @aass ||= AASS::Base.new(self, opts)
       @aass.instance_eval(&block) if block
       @aass
     end
   end
 
   class Base
-    attr_accessor :klass, :states, :state
+    attr_accessor :klass, :states, :state, :column
     def initialize(klass, opts = {})
+      @column = opts[:column]
       @klass = klass
       @states = {}
     end
@@ -40,6 +41,7 @@ module AASS
     end
 
     def to(state, opts = {})
+      @states[:column] = @column
       @states[@state] << opts.merge(to: state)
     end
   end

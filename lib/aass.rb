@@ -5,7 +5,7 @@ module AASS
     base.extend(ClassMethods)
 
     base.class_eval do
-      def next_state
+      def next_state!
         states = self.class.aass.states
         current_state = self.send(states[:column]).to_sym
 

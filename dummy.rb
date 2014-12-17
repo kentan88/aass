@@ -36,4 +36,4 @@ class Dummy
 end
 
 dummy = Dummy.new(status: 'unassigned')
-p dummy.next_state
+p dummy.next_state!

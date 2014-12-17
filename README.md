@@ -87,8 +87,8 @@ class Delivery < ActiveRecord::Base
   end
 end
 
-Delivery.new(status: 'unassigned').next_state
-=> "postponed"
+Delivery.new(status: 'unassigned').next_state!
+=> #<Delivery id: nil, date: nil, status: "postponed", created_at: nil, updated_at: nil>
 ```
 
 ## To-Do

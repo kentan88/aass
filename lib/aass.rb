@@ -1,4 +1,4 @@
-# require "aa ss/version"
+# require "aass/version"
 
 module AASS
   def self.included(base)
@@ -12,7 +12,8 @@ module AASS
         if states.keys.include?(current_state)
           possible_states = states[current_state]
           next_state_hash = possible_states.detect { |hash| self.send(hash[:if]) }
-          self.status = next_state_hash[:to].to_s if next_state_hash
+          self.send("#{states[:column]}=", next_state_hash[:to].to_s) if next_state_hash
+          self
         end
       end
     end

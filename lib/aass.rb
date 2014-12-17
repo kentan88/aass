@@ -29,7 +29,7 @@ module AASS
   class Base
     attr_accessor :klass, :states, :state, :column
     def initialize(klass, opts = {})
-      @column = opts[:column]
+      @column = opts[:column] || :state
       @klass = klass
       @states = {}
     end

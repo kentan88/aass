@@ -12,9 +12,9 @@ class Dummy
 
   aass(column: :status) do
     from :unassigned do
-      to :assigned, if: :can_assign?
+      to :assigned, if: :can_assign?, after: :notify_customer
       to :postponed, if: :can_postpone?
-      to :cancel, if: :can_cancel?
+      to :cancelled, if: :can_cancel?, after: :remove_items
     end
 
     from :assigned do
@@ -33,6 +33,13 @@ class Dummy
   def can_cancel?
     false
   end
+
+  def notify_customer
+  end
+
+  def remove_items
+  end
+
 end
 
 dummy = Dummy.new(status: 'unassigned')

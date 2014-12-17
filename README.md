@@ -60,9 +60,9 @@ class Delivery < ActiveRecord::Base
   aass(column: :status) do
     from :unassigned do
       # higher has priority
-      to :assigned, if: :can_assign?
+      to :assigned, if: :can_assign?, after: :notify_customer
       to :postponed, if: :can_postpone?
-      to :cancel, if: :can_cancel?
+      to :cancelled, if: :can_cancel?, after: :remove_items
     end
 
     from :assigned do
@@ -85,6 +85,15 @@ class Delivery < ActiveRecord::Base
   def can_ship?
     true
   end
+
+  def notify_customer
+    ...
+  end
+
+  def remove_items
+    ...
+  end
+
 end
 
 Delivery.new(status: 'unassigned').next_state!

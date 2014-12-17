@@ -1,6 +1,8 @@
 # AASS
 
 Acts-As-State-Setter (AASS) sets the next state of a object based on the current state and a specified condition.
+Is it another state machine library? No. State Macine gems like AASM assumes you already know the state to call
+the event which triggers the save and callbacks. AASS is like the prequel, it gives you the next state.
 
 ## Installation
 

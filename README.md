@@ -1,8 +1,6 @@
 # AASS
 
-Acts-As-State-Setter (AASS) sets the next state of a object based on the current state and a specified condition.
-Is it another state machine library? No. State Machine gems like AASM assumes you already know the state to call
-the event which triggers the save and callbacks. AASS is like the prequel, it sets the next state.
+Acts-As-State-Setter (AASS) is a light-weight state machine library.
 
 ## Installation
 
@@ -49,7 +47,6 @@ end
 Delivery.new(status: 'unassigned').set_status
 => "postponed"
 ```
-
 
 ## After
 
@@ -100,21 +97,21 @@ class Delivery < ActiveRecord::Base
 end
 
 delivery = Delivery.new(status: 'unassigned')
-=> #<Delivery:0x000001020d74a8 @status="unassigned">
+=> #<Delivery id: nil, date: nil, status: "unassigned", created_at: nil, updated_at: nil>
 delivery.unassigned?
 => true
 delivery.assigned
-=> <Delivery:0x000001018d34a0 @status="assigned", @name=nil>
+=> #<Delivery id: nil, date: nil, status: "assigned", created_at: nil, updated_at: nil>
 delivery.assigned?
 => true
 delivery.shipped?
 => false
 delivery.shipped
-=> <Delivery:0x000001020efd28 @status="shipped", @name=nil>
+=> #<Delivery id: nil, date: nil, status: "shipped", created_at: nil, updated_at: nil>
 delivery.shipped?
 => true
 delivery.next_state!
-=> #<Delivery:0x0000010120b4d8 @status="delivered">
+=> #<Delivery id: nil, date: nil, status: "delivered", created_at: nil, updated_at: nil>
 ```
 
 ## To-Do

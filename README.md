@@ -59,51 +59,67 @@ class Delivery < ActiveRecord::Base
 
   aass(column: :status) do
     from :unassigned do
-      # higher has priority
-      to :assigned, if: :can_assign?, after: :notify_customer
-      to :postponed, if: :can_postpone?
-      to :cancelled, if: :can_cancel?, after: :remove_items
+      to :assigned, if: :assignable?
+      to :postponed, if: :postponable?
+      to :cancelled, if: :cancelable?
     end
 
     from :assigned do
-      to :shipping, if: :can_ship?
+      to :unassigned, if: :unassignable?
+      to :shipped, if: :shippable?
+    end
+
+    from :shipped do
+      to :delivered, if: :deliverable?
     end
   end
 
-  def can_assign?
+  def assignable?
     false
   end
 
-  def can_postpone?
+  def postponable?
     true
   end
 
-  def can_cancel?
+  def cancellable?
+    false
+  end
+
+  def shippable?
     true
   end
 
-  def can_ship?
+  def unassignable?
+    false
+  end
+
+  def deliverable?
     true
   end
-
-  def notify_customer
-    ...
-  end
-
-  def remove_items
-    ...
-  end
-
 end
 
-Delivery.new(status: 'unassigned').next_state!
-=> #<Delivery id: nil, date: nil, status: "postponed", created_at: nil, updated_at: nil>
+delivery = Delivery.new(status: 'unassigned')
+=> #<Delivery:0x000001020d74a8 @status="unassigned">
+delivery.unassigned?
+=> true
+delivery.assigned
+=> <Delivery:0x000001018d34a0 @status="assigned", @name=nil>
+delivery.assigned?
+=> true
+delivery.shipped?
+=> false
+delivery.shipped
+=> <Delivery:0x000001020efd28 @status="shipped", @name=nil>
+delivery.shipped?
+=> true
+delivery.next_state!
+=> #<Delivery:0x0000010120b4d8 @status="delivered">
 ```
 
 ## To-Do
 1. Integration with AASM
 2. Provide aass_status! to update state immediately
-
 
 ## Contributing
 

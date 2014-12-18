@@ -1,46 +1,60 @@
 require File.join(File.dirname(__FILE__), 'lib', 'aass')
 
-class Dummy
+class Delivery
   include AASS
-
-  attr_accessor :status, :name
+  attr_accessor :status
 
   def initialize(opts = {})
     @status = opts[:status]
-    @name = opts[:name]
   end
 
   aass(column: :status) do
     from :unassigned do
-      to :assigned, if: :can_assign?, after: :notify_customer
-      to :postponed, if: :can_postpone?
-      to :cancelled, if: :can_cancel?, after: :remove_items
+      to :assigned, if: :assignable?
+      to :postponed, if: :postponable?
+      to :cancelled, if: :cancelable?
     end
 
     from :assigned do
-      to :shipping, if: :can_ship?
+      to :unassigned, if: :unassignable?
+      to :shipped, if: :shippable?
+    end
+
+    from :shipped do
+      to :delivered, if: :deliverable?
     end
   end
 
-  def can_assign?
+  def assignable?
     false
   end
 
-  def can_postpone?
+  def postponable?
     true
   end
 
-  def can_cancel?
+  def cancellable?
     false
   end
 
-  def notify_customer
+  def shippable?
+    true
   end
 
-  def remove_items
+  def unassignable?
+    false
   end
 
+  def deliverable?
+    true
+  end
 end
 
-dummy = Dummy.new(status: 'unassigned')
-p dummy.next_state!
+delivery = Delivery.new(status: 'unassigned')
+p delivery.unassigned? #true
+p delivery.assigned #<Delivery:0x000001018d34a0 @status="assigned", @name=nil>
+p delivery.assigned? #true
+p delivery.shipped? #false
+p delivery.shipped #<Delivery:0x000001020efd28 @status="shipped", @name=nil>
+p delivery.shipped? #true
+p delivery.next_state! #<Delivery:0x0000010120b4d8 @status="delivered">

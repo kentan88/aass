@@ -36,12 +36,26 @@ module AASS
     end
 
     def from(state, &block)
+
       @state = state
       @states[@state] ||= []
       self.instance_eval(&block) if block
     end
 
     def to(state, opts = {})
+      @klass.send('define_method', "#{state}?") do
+        self.send('status') == state.to_s
+      end
+
+      @klass.send('define_method', "#{state}") do
+        self.send("status=", state.to_s)
+        self
+      end
+
+      # @klass.send('define_method', "can_#{state}?") do
+      #   self.send(opts[:if])
+      # end
+
       @states[:column] = @column
       @states[@state] << opts.merge(to: state)
     end
